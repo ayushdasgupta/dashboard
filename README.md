@@ -107,11 +107,16 @@ Charts update in real time when timeline or data changes.
 
 ---
 
+## Demo
+
+[Live Link](https://dashboard-seven-eosin-28.vercel.app/)
+
+
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/your-username/weather-dashboard
-cd weather-dashboard
+git clone https://github.com/ayushdasgupta/dashboard
+cd dashboard
 pnpm install
 pnpm dev
 ```

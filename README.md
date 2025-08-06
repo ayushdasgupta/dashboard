@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 Geo-Temporal Weather Dashboard
 
-## Getting Started
+An interactive, map-based dashboard built with **React / Next.js + TypeScript** that allows users to:
 
-First, run the development server:
+- Select time ranges using a timeline slider
+- Draw polygonal regions on a map
+- Visualize and color-code weather data from Open-Meteo API
+- Explore insights using dynamic charts and graphs
+
+> Inspired by: [lighthearted-strudel-97caae.netlify.app](https://lighthearted-strudel-97caae.netlify.app)
+
+---
+
+## 📦 Features
+
+### 🕒 1. Timeline Slider (30-Day Window)
+- Select a specific **hour** or a **range of hours**
+- 15 days before and after today (hourly resolution)
+- Drag handles to change the time selection
+- Triggers dynamic map and chart updates
+
+---
+
+### 🗺️ 2. Interactive Map
+- Built with **Leaflet** or **Mapbox GL**
+- Fixed zoom resolution (~2 sq. km)
+- Draw polygons with:
+  - Minimum 3 points, maximum 12
+  - Color rules per polygon
+  - Polygons persist when panning
+- Optional features:
+  - Edit polygon vertices
+  - Rename polygons
+
+---
+
+### 📊 3. Data Visualizations (Charts)
+All charts shown in the [reference site](https://lighthearted-strudel-97caae.netlify.app) are supported:
+
+- ✅ Line Chart
+- ✅ Bar Chart
+- ✅ Stacked Bar Chart
+- ✅ Area Chart
+- ✅ Stacked Area Chart
+- ✅ Radar Chart
+- ✅ Donut / Pie Chart
+- ✅ Gauge / Circular Progress
+- ✅ Time-Series Temperature Chart
+
+Charts update in real time when timeline or data changes.
+
+---
+
+### 🧪 4. Weather Data Source (Open-Meteo API)
+- Fetch hourly weather data using the [Open-Meteo Archive API](https://open-meteo.com/en/docs)
+- Query by polygon **centroid** or **bounding box**
+- Supports field: `temperature_2m` (by default)
+- Example API:
+[reference api](https://archive-api.open-meteo.com/v1/archive?latitude=22.57&longitude=88.36&start_date=2025-07-18&end_date=2025-08-01&hourly=temperature_2m)
+
+
+---
+
+### 🎛️ 5. Sidebar Controls
+- Select data source (e.g., `temperature_2m`)
+- Add custom **threshold color rules** per polygon:
+- Example: `temperature > 35 → red`
+- Choose color with a visual picker
+- Excel/Sheets-like rule management
+
+---
+
+### ♻️ 6. Dynamic Updates
+- Any change in:
+- Timeline range
+- Polygon draw/edit/delete
+- Color thresholds
+- Triggers:
+- Data fetching
+- Rule evaluation
+- Map and chart re-render
+
+---
+
+## 🔁 Bonus Features (Optional Enhancements)
+| Feature | Description |
+|--------|-------------|
+| 🌀 Timeline Animation | Animate polygon color changes as the slider moves |
+| 🧠 Persist State | Save drawn polygons and thresholds in localStorage |
+| ⚡ API Caching | Avoid redundant fetches with a smart cache |
+| 💬 Tooltips & Legends | Show temperature value on hover + color legend |
+| 🌐 Multiple Data Sources | Add support for other fields like `humidity`, `wind_speed`, etc. |
+| 📱 Responsive Design | Works on both desktop and mobile |
+
+---
+
+## 🧱 Tech Stack
+
+| Area | Stack |
+|------|-------|
+| Framework |  [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/) |
+| Maps | [React Leaflet](https://react-leaflet.js.org/) |
+| Charts | [Recharts](https://recharts.org/)|
+| UI | [Tailwind CSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/) |
+| Data | [Open-Meteo API](https://open-meteo.com/) |
+| Fetching | [React Query](https://tanstack.com/query/v4) |
+
+---
+
+## 🚀 Getting Started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/your-username/weather-dashboard
+cd weather-dashboard
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
+- Visit http://localhost:3000
+- Start drawing polygons and visualizing weather!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Author
+- [@ayushdasgupta](https://www.github.com/ayushdasgupta)
+- Backend Developer | Frontend Developer  |  Fullstack Engineer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

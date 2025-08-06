@@ -61,13 +61,13 @@ const WeatherDashboard: React.FC = () => {
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen w-full bg-gradient-to-br from-background via-background to-primary/5">
         {/* Header */}
-        <header className="h-16 bg-card/95 backdrop-blur-sm border-b border-primary/10 shadow-weather sticky top-0 z-50">
+        <header className="h-16 bg-card/95 backdrop-blur-sm shadow-weather sticky top-0 z-50">
           <div className="h-full px-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <SidebarTrigger className="lg:hidden" />
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-gradient-weather flex items-center justify-center">
-                  <Cloud className="h-5 w-5 text-white" />
+                  <Cloud className="h-5 w-5 text-black" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Weather Dashboard</h1>
@@ -97,9 +97,9 @@ const WeatherDashboard: React.FC = () => {
 
         <div className="flex h-[calc(100vh-4rem)]">
           {/* Sidebar */}
-          <Sidebar className="border-r border-primary/10 bg-card/50 backdrop-blur-sm">
+          <Sidebar className="bg-card/50 backdrop-blur-sm">
             <SidebarContent>
-              <div className="p-2 border-b border-primary/10">
+              <div className="p-2 ">
                 <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
                   <Settings className="h-5 w-5 text-primary" />
                   Controls

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Plus, Trash2, Settings, Palette, Thermometer, Droplets, Wind, Gauge } from 'lucide-react';
 import { ColorRule, WeatherFieldId, ComparisonOperator } from '@/types/weather.js';
+import { cn } from '@/lib/utils';
 
 // Comparison operator types
 
@@ -84,7 +85,6 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
     label: 'Hot'
   });
 
-  // Available data sources configuration
   const dataSources: DataSource[] = [
     { 
       id: 'open-meteo', 
@@ -96,16 +96,9 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
       name: 'Weather API', 
       description: 'Real-time weather (Coming Soon)', 
       disabled: true 
-    },
-    { 
-      id: 'noaa', 
-      name: 'NOAA', 
-      description: 'Climate data (Coming Soon)', 
-      disabled: true 
     }
   ];
 
-  // Available weather fields with their display information
   const weatherFields: WeatherField[] = [
     { id: 'temperature_2m', name: 'Temperature (2m)', icon: Thermometer, unit: '°C' },
     { id: 'relative_humidity_2m', name: 'Humidity (2m)', icon: Droplets, unit: '%' },
@@ -134,11 +127,11 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
     '#6b7280'  // gray
   ];
 
-  // Handle adding a new color rule
+
   const handleAddRule = (): void => {
     if (newRule.label.trim()) {
       onColorRuleAdd(newRule);
-      // Reset form with next available color
+
       setNewRule({
         field: selectedField as WeatherFieldId,
         operator: 'gt',
@@ -149,36 +142,34 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
     }
   };
 
-  // Handle operator selection with proper typing
+
   const handleOperatorChange = (value: string): void => {
     if (isValidOperator(value)) {
       setNewRule({ ...newRule, operator: value });
     }
   };
 
-  // Handle field selection with proper typing
   const handleFieldChange = (value: string): void => {
     if (isValidWeatherField(value)) {
       setNewRule({ ...newRule, field: value });
     }
   };
 
-  // Type guard for operator validation
   const isValidOperator = (value: string): value is ComparisonOperator => {
     return ['gt', 'lt', 'gte', 'lte', 'eq'].includes(value);
   };
 
-  // Type guard for weather field validation
+
   const isValidWeatherField = (value: string): value is WeatherFieldId => {
     return ['temperature_2m', 'relative_humidity_2m', 'wind_speed_10m', 'surface_pressure'].includes(value);
   };
 
-  // Get unit for a specific weather field
+
   const getFieldUnit = (fieldId: string): string => {
     return weatherFields.find(f => f.id === fieldId)?.unit || '';
   };
 
-  // Handle input change events with proper typing
+
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNewRule({ ...newRule, value: Number(e.target.value) });
   };
@@ -192,7 +183,6 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
     setNewRule({ ...newRule, color });
   };
 
-  // Quick action to add default temperature rules
   const addDefaultTemperatureRules = (): void => {
     const defaultRules: DefaultRule[] = [
       { field: 'temperature_2m', operator: 'gte', value: 30, color: '#ef4444', label: 'Hot' },
@@ -202,7 +192,7 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
     defaultRules.forEach(rule => onColorRuleAdd(rule));
   };
 
-  // Quick action to clear all rules
+
   const clearAllRules = (): void => {
     colorRules.forEach(rule => onColorRuleDelete(rule.id));
   };
@@ -210,7 +200,7 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
   return (
     <div className="space-y-6 p-6">
       {/* Data Source Selection - Choose where weather data comes from */}
-      <Card className="p-4 bg-gradient-to-br from-card to-primary/5 border-primary/20">
+      <Card className={cn("p-4 bg-white from-card to-primary/ border-none")}>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Settings className="h-4 w-4 text-primary" />
@@ -218,10 +208,10 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
           </div>
           
           <Select value={selectedDataSource} onValueChange={onDataSourceChange}>
-            <SelectTrigger className="border-primary/20">
+            <SelectTrigger className={cn("border-none")}>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className={cn("border-none bg-white")}>
               {dataSources.map((source) => (
                 <SelectItem 
                   key={source.id} 
@@ -241,7 +231,7 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
       </Card>
 
       {/* Weather Field Selection - Choose which weather parameter to visualize */}
-      <Card className="p-4 bg-gradient-to-br from-card to-accent/5 border-accent/20">
+      <Card className={cn("p-4 bg-gradient-to-br from-card to-accent/5 border-none")}>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Thermometer className="h-4 w-4 text-accent" />
@@ -249,10 +239,10 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
           </div>
           
           <Select value={selectedField} onValueChange={onFieldChange}>
-            <SelectTrigger className="border-accent/20">
+            <SelectTrigger className={cn("border-none")}>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className={cn("border-0 bg-white")}>
               {weatherFields.map((field) => {
                 const IconComponent = field.icon;
                 return (
@@ -272,8 +262,8 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
         </div>
       </Card>
 
-      {/* Color Rules Configuration - Define visualization rules */}
-      <Card className="p-4 bg-gradient-to-br from-card to-secondary/10 border-secondary/20">
+
+      <Card className={cn("p-4 bg-gradient-to-br from-card to-secondary/10 border-0")}>
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Palette className="h-4 w-4 text-secondary-foreground" />
@@ -281,7 +271,7 @@ const WeatherSidebar: React.FC<WeatherSidebarProps> = ({
           </div>
 
           {/* Add New Rule Form */}
-          <div className="space-y-3 p-3 bg-secondary/20 rounded-lg border border-secondary/30">
+          <div className="space-y-3 p-3 bg-secondary/20 rounded-lg ">
             <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Add New Rule
             </Label>

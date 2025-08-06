@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+* {
+  box-sizing: border-box;
+  border:none
+}
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -63,6 +66,7 @@
 }
 
 :root {
+
   --background: 220 20% 98%;
   --foreground: 210 40% 12%;
 
